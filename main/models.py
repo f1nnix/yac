@@ -1,3 +1,11 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
-# Create your models here.
+
+class AbstractBase(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    meta = JSONField(default=dict)
+
+    class Meta:
+        abstract = True

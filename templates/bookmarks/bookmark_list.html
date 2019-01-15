@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
     <form method="post" action="{% url 'bookmark-list' %}">{% csrf_token %}
-        <input class="form-control form-control-lg" type="text" placeholder="Enter URL to save..." autofocus>
+    {% include 'bookmarks/_form.html' %}
     </form>
         {% for bookmark in bookmarks %}
             <div class="row link-block">

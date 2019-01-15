@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-12">
+        <div class="form-group">
+            {% if form.url.errors %}
+                <ul class="errors">
+                    {% for error in form.title.errors %}
+                        <li>{{ error }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            {{ form.url }}
+        </div>
+    </div>
+</div>

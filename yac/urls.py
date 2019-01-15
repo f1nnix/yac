@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path  # For django versions from 2.0 and up
+from bookmarks.views import BookmarksView
 
 urlpatterns = [
+    path('bookmarks/', BookmarksView.as_view(), name='bookmark-list'),
     path('manage/', admin.site.urls),
     path('auth/', include('authtools.urls')),
+
 ]

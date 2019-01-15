@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form method="post" action="{% url 'bookmark-list' %}">{% csrf_token %}
+        <input class="form-control form-control-lg" type="text" placeholder="Enter URL to save..." autofocus>
+    </form>
+        {% for bookmark in bookmarks %}
+            <div class="row link-block">
+                <div class="col-12">
+                    <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.url }}</a>
+                    <br/>
+                    <small>{{ bookmark.created_at }}</small>
+                </div>
+            </div>
+        {% empty %}
+            <li>No articles yet.</li>
+        {% endfor %}
+{% endblock %}

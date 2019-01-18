@@ -1,17 +1,45 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <form method="post" action="{% url 'bookmark-list' %}">{% csrf_token %}
-    {% include 'bookmarks/_form.html' %}
-    </form>
-        {% for bookmark in bookmarks %}
-            <div class="row link-block">
+    <div class="bookmark-form">
+        <form method="post" action="{% url 'bookmark-list' %}">{% csrf_token %}
+            {% include 'bookmarks/_form.html' %}
+            <div class="row">
                 <div class="col-12">
-                    <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.url }}</a>
-                    <br/>
-                    <small>{{ bookmark.created_at }}</small>
+                    <div class="form-group">
+                        <select multiple class="form-control tags-select" placeholder="Choose anything" name="tags">
+                            {% for tag in tags %}
+                                <option value="{{ tag.title }}">{{ tag.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
-        {% empty %}
-            <li>No articles yet.</li>
-        {% endfor %}
+            <input type="submit">
+        </form>
+    </div>
+    {% for bookmark in bookmarks %}
+        <div class="row bookmark-block">
+            <div class="col-12">
+                {% if bookmark.title %}
+                    <a href="{{ bookmark.url }}" target="_blank"><h5>{{ bookmark.title }}</h5></a>
+                    <p class="description">{{ bookmark.description }}</p>
+                {% else %}
+                    <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.url }}</a>
+                {% endif %}
+                {% for tag in bookmark.tags.all %}
+                    <span class="badge badge-secondary">{{ tag.title }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $('.tags-select').select2({
+            placeholder: 'Select an option',
+            tags: true,
+        });
+    </script>
 {% endblock %}

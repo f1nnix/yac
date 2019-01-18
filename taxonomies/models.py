@@ -6,3 +6,6 @@ from main.models import AbstractBase
 class Tag(AbstractBase):
     slug = models.SlugField(max_length=128, blank=False, null=False)
     title = models.TextField(max_length=512, blank=False, null=False)
+
+    def __str__(self):
+        return self.title

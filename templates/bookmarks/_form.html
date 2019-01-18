@@ -2,10 +2,13 @@
     <div class="col-12">
         <div class="form-group">
             {% if form.url.errors %}
-                <ul class="errors">
-                    {% for error in form.title.errors %}
-                        <li>{{ error }}</li>{% endfor %}
-                </ul>
+                <div class="errors">
+                    {% for error in form.url.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
             {{ form.url }}
         </div>
